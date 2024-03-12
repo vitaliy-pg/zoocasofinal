@@ -1,5 +1,7 @@
 package zoologico;
 
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -306,6 +308,7 @@ public class ZooMain {
             case 1:
                 animal = new Lion("Savannah");
                 break;
+
             case 2:
                 animal = new Penguin("Antarctica");
                 break;
@@ -370,7 +373,89 @@ public class ZooMain {
 
     public static void performMaintenanceAndSecurity(MaintenanceAndSecuritySystem maintenanceAndSecuritySystem, Scanner scanner) {
         System.out.println("Mantenimiento y Seguridad:");
-        // Implementar la lógica para el mantenimiento y la seguridad
-    }
-    }
+        System.out.println("Seleccione una opción:");
+        System.out.println("1. Agregar tarea de mantenimiento");
+        System.out.println("2. Controlar cámaras de seguridad");
+        System.out.println("3. Controlar sensores");
+        int option = scanner.nextInt();
+        scanner.nextLine(); // Consumir la nueva línea después de nextInt()
 
+        switch (option) {
+            case 1:
+                System.out.println("Ingrese la descripción de la tarea de mantenimiento:");
+                String description = scanner.nextLine();
+                System.out.println("¿Es urgente? (true/false):");
+                boolean urgent = scanner.nextBoolean();
+                scanner.nextLine(); // Consumir la nueva línea después de nextBoolean()
+                maintenanceAndSecuritySystem.addMaintenanceTask(description, urgent);
+                break;
+            case 2:
+                System.out.println("Seleccione una opción:");
+                System.out.println("1. Encender cámaras");
+                System.out.println("2. Apagar cámaras");
+                int cameraOption = scanner.nextInt();
+                scanner.nextLine(); // Consumir la nueva línea después de nextInt()
+                if (cameraOption == 1) {
+                    maintenanceAndSecuritySystem.turnOnCameras();
+                } else if (cameraOption == 2) {
+                    maintenanceAndSecuritySystem.turnOffCameras();
+                } else {
+                    System.out.println("Opción no válida.");
+                }
+                break;
+            case 3:
+                System.out.println("Seleccione una opción:");
+                System.out.println("1. Encender sensores");
+                System.out.println("2. Apagar sensores");
+                int sensorOption = scanner.nextInt();
+                scanner.nextLine(); // Consumir la nueva línea después de nextInt()
+                if (sensorOption == 1) {
+                    maintenanceAndSecuritySystem.turnOnSensors();
+                } else if (sensorOption == 2) {
+                    maintenanceAndSecuritySystem.turnOffSensors();
+                } else {
+                    System.out.println("Opción no válida.");
+                }
+                break;
+            default:
+                System.out.println("Opción no válida.");
+                break;
+        }
+    }
+    static class MaintenanceAndSecuritySystem {
+        private List<MaintenanceTask> maintenanceTasks;
+        private List<String> securityCameras;
+        private List<String> sensors;
+
+        public MaintenanceAndSecuritySystem() {
+            maintenanceTasks = new ArrayList<>();
+            securityCameras = new ArrayList<>();
+            sensors = new ArrayList<>();
+        }
+
+        public void addMaintenanceTask(String description, boolean urgent) {
+            maintenanceTasks.add(new MaintenanceTask(description, urgent));
+            System.out.println("Tarea de mantenimiento agregada: " + description);
+        }
+
+        public void turnOnCameras() {
+            // Lógica para encender cámaras
+            System.out.println("Cámaras encendidas.");
+        }
+
+        public void turnOffCameras() {
+            // Lógica para apagar cámaras
+            System.out.println("Cámaras apagadas.");
+        }
+
+        public void turnOnSensors() {
+            // Lógica para encender sensores
+            System.out.println("Sensores encendidos.");
+        }
+
+        public void turnOffSensors() {
+            // Lógica para apagar sensores
+            System.out.println("Sensores apagados.");
+        }
+    }
+}
