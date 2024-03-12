@@ -389,7 +389,7 @@ public class ZooMain {
         String animalName = scanner.nextLine();
         // Aquí podrías implementar la lógica para mostrar información sobre el animal
         System.out.println("Información sobre el animal " + animalName + ":");
-        System.out.println("...");
+        System.out.println("anda deja de copiar y pegar");
     }
 
     public static void manageResources(ZooResourceManager resourceManager, Scanner scanner) {
