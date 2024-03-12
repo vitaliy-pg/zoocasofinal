@@ -382,8 +382,20 @@ public class ZooMain {
         animal.feed();
         animal.updateHealth("Enfermo");
         animal.updateBehavior("Agresivo");
-    }
 
+        // Verificar el tipo de animal y realizar acciones específicas
+        if (animal instanceof Lion) {
+            Lion lion = (Lion) animal;
+            lion.roar(); // Rugir solo es posible para leones
+        } else if (animal instanceof Penguin) {
+            Penguin penguin = (Penguin) animal;
+            penguin.swim(); // Nadar solo es posible para pingüinos
+        }
+
+        // Simular movimiento y descanso para todos los animales
+        animal.move();
+        animal.rest();
+    }
     public static void interactWithVisitors(Scanner scanner) {
         System.out.println("Interacción con Visitantes:");
         System.out.println("Seleccione el tipo de visita:");
