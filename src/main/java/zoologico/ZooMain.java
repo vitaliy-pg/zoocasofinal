@@ -113,17 +113,37 @@ abstract class Animal {
         this.behavior = behaviorStatus;
         System.out.println(species + " ahora está mostrando comportamiento " + behaviorStatus);
     }
+
+    // Método para simular el movimiento del animal en su hábitat
+    public void move() {
+        System.out.println(species + " se está moviendo en su hábitat " + habitat);
+    }
+
+    // Método para simular el descanso del animal
+    public void rest() {
+        System.out.println(species + " está descansando en su hábitat " + habitat);
+    }
 }
 
 class Lion extends Animal {
     public Lion(String habitat) {
         super("León", habitat);
     }
+
+    // Método específico para rugir
+    public void roar() {
+        System.out.println("¡El león está rugiendo!");
+    }
 }
 
 class Penguin extends Animal {
     public Penguin(String habitat) {
         super("Pingüino", habitat);
+    }
+
+    // Método específico para nadar
+    public void swim() {
+        System.out.println("¡El pingüino está nadando en el agua!");
     }
 }
 
