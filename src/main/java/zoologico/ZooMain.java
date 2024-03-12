@@ -265,14 +265,42 @@ public class ZooMain {
 
     public static void manageHabitats(Scanner scanner) {
         System.out.println("Gestión de Hábitats:");
+        System.out.println("Seleccione una opción:");
+        System.out.println("1. Agregar hábitat");
+        System.out.println("2. Eliminar hábitat");
+        System.out.println("3. Actualizar información de hábitat");
+        int option = scanner.nextInt();
+        scanner.nextLine(); // Consumir la nueva línea después de nextInt()
+
+        ZooManager zooManager = new ZooManager(); // Suponiendo que tienes una clase llamada ZooManager para gestionar los hábitats
+
+        switch (option) {
+            case 1:
+                addHabitat(scanner, zooManager);
+                break;
+            case 2:
+                removeHabitat(scanner, zooManager);
+                break;
+            case 3:
+                updateHabitat(scanner, zooManager);
+                break;
+            default:
+                System.out.println("Opción no válida.");
+                break;
+        }
+    }
+
+    public static void addHabitat(Scanner scanner, ZooManager zooManager) {
+        System.out.println("Agregar hábitat:");
         System.out.println("Seleccione el tipo de hábitat:");
         System.out.println("1. Acuático");
         System.out.println("2. Terrestre");
         System.out.println("3. Aviario");
         int habitatType = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("Ingrese el nombre del animal:");
-        String nombre = scanner.nextLine();
+
+        System.out.println("Ingrese el nombre del hábitat:");
+        String habitatName = scanner.nextLine();
 
         System.out.println("Ingrese la temperatura del hábitat:");
         int temperature = scanner.nextInt();
@@ -286,23 +314,53 @@ public class ZooMain {
         boolean clean = scanner.nextBoolean();
         scanner.nextLine();
 
-        Habitat habitat = null;
         switch (habitatType) {
             case 1:
-                habitat = new AquaticHabitat(temperature, humidity, clean, "nombre");
+                zooManager.addHabitat(new AquaticHabitat(temperature, humidity, clean, habitatName));
                 break;
             case 2:
-                habitat = new TerrestrialHabitat(temperature, humidity, clean, "nombre");
+                zooManager.addHabitat(new TerrestrialHabitat(temperature, humidity, clean, habitatName));
                 break;
             case 3:
-                habitat = new AviaryHabitat(temperature, humidity, clean, "nombre");
+                zooManager.addHabitat(new AviaryHabitat(temperature, humidity, clean, habitatName));
                 break;
             default:
                 System.out.println("Tipo de hábitat no válido.");
-                return;
+                break;
         }
+    }
 
-        habitat.monitorConditions();
+    public static void removeHabitat(Scanner scanner, ZooManager zooManager) {
+        System.out.println("Eliminar hábitat:");
+        System.out.println("Ingrese el nombre del hábitat que desea eliminar:");
+        String habitatName = scanner.nextLine();
+        zooManager.removeHabitat(habitatName);
+    }
+
+    public static void updateHabitat(Scanner scanner, ZooManager zooManager) {
+        System.out.println("Actualizar información de hábitat:");
+        System.out.println("Ingrese el nombre del hábitat que desea actualizar:");
+        String habitatName = scanner.nextLine();
+        Habitat habitat = zooManager.getHabitatByName(habitatName);
+        if (habitat != null) {
+            System.out.println("Ingrese la nueva temperatura del hábitat:");
+            int temperature = scanner.nextInt();
+            scanner.nextLine();
+
+            System.out.println("Ingrese la nueva humedad del hábitat:");
+            int humidity = scanner.nextInt();
+            scanner.nextLine();
+
+            System.out.println("¿El hábitat está limpio? (true/false):");
+            boolean clean = scanner.nextBoolean();
+            scanner.nextLine();
+
+            habitat.setTemperature(temperature);
+            habitat.setHumidity(humidity);
+            habitat.setClean(clean);
+        } else {
+            System.out.println("El hábitat especificado no existe.");
+        }
     }
 
     public static void manageAnimals(Scanner scanner) {
