@@ -88,10 +88,10 @@ class AviaryHabitat extends Habitat {
 // Clases para el cuidado de los animales
 
 abstract class Animal {
-    private String species;
-    private String habitat;
-    private String health;
-    private String behavior;
+    protected String species;
+    protected String habitat;
+    protected String health;
+    protected String behavior;
 
     public Animal(String species, String habitat) {
         this.species = species;
@@ -114,15 +114,15 @@ abstract class Animal {
         System.out.println(species + " ahora está mostrando comportamiento " + behaviorStatus);
     }
 
-    // Método para simular el movimiento del animal en su hábitat
     public void move() {
         System.out.println(species + " se está moviendo en su hábitat " + habitat);
     }
 
-    // Método para simular el descanso del animal
     public void rest() {
         System.out.println(species + " está descansando en su hábitat " + habitat);
     }
+
+    public abstract void interact();
 }
 
 class Lion extends Animal {
@@ -130,7 +130,11 @@ class Lion extends Animal {
         super("León", habitat);
     }
 
-    // Método específico para rugir
+    @Override
+    public void interact() {
+        System.out.println("El león observa a los visitantes con atención.");
+    }
+
     public void roar() {
         System.out.println("¡El león está rugiendo!");
     }
@@ -141,7 +145,11 @@ class Penguin extends Animal {
         super("Pingüino", habitat);
     }
 
-    // Método específico para nadar
+    @Override
+    public void interact() {
+        System.out.println("El pingüino se acerca curioso a los visitantes.");
+    }
+
     public void swim() {
         System.out.println("¡El pingüino está nadando en el agua!");
     }
@@ -366,35 +374,39 @@ public class ZooMain {
         scanner.nextLine();
 
         Animal animal = null;
+        String habitat = null;
+
         switch (animalType) {
             case 1:
-                animal = new Lion("Savannah");
+                habitat = "Savannah";
                 break;
-
             case 2:
-                animal = new Penguin("Antarctica");
+                habitat = "Antarctica";
                 break;
             default:
                 System.out.println("Especie de animal no válida.");
                 return;
         }
 
-        animal.feed();
-        animal.updateHealth("Enfermo");
-        animal.updateBehavior("Agresivo");
-
-        // Verificar el tipo de animal y realizar acciones específicas
-        if (animal instanceof Lion) {
-            Lion lion = (Lion) animal;
-            lion.roar(); // Rugir solo es posible para leones
-        } else if (animal instanceof Penguin) {
-            Penguin penguin = (Penguin) animal;
-            penguin.swim(); // Nadar solo es posible para pingüinos
+        if (animalType == 1 || animalType == 2) {
+            animal = createAnimal(animalType, habitat);
+            if (animal != null) {
+                animal.feed();
+                animal.updateHealth("Enfermo");
+                animal.updateBehavior("Agresivo");
+            }
         }
+    }
 
-        // Simular movimiento y descanso para todos los animales
-        animal.move();
-        animal.rest();
+    private static Animal createAnimal(int animalType, String habitat) {
+        switch (animalType) {
+            case 1:
+                return new Lion(habitat);
+            case 2:
+                return new Penguin(habitat);
+            default:
+                return null;
+        }
     }
     public static void interactWithVisitors(Scanner scanner) {
         System.out.println("Interacción con Visitantes:");
