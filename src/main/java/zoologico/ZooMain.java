@@ -121,6 +121,16 @@ class InteractiveKiosk {
     public void provideInformation(String information) {
         System.out.println("Mostrando información en el kiosco interactivo: " + information);
     }
+
+    public void provideHabitatInformation(String habitatType) {
+        // Aquí puedes implementar la lógica para mostrar información sobre el hábitat
+        System.out.println("Mostrando información sobre el hábitat " + habitatType);
+    }
+
+    public void provideAnimalInformation(String animalName) {
+        // Aquí puedes implementar la lógica para mostrar información sobre el animal
+        System.out.println("Mostrando información sobre el animal " + animalName);
+    }
 }
 
 // Clase para representar un recurso
