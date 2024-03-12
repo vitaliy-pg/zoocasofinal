@@ -330,20 +330,56 @@ public class ZooMain {
         int visitorType = scanner.nextInt();
         scanner.nextLine();
 
-        TourGuide tourGuide = null;
         switch (visitorType) {
             case 1:
-                tourGuide = new ChildrenTourGuide();
+                tourForChildren();
                 break;
             case 2:
-                tourGuide = new BirdLoversTourGuide();
+                tourForBirdLovers();
                 break;
             default:
                 System.out.println("Tipo de visitante no válido.");
                 return;
         }
+    }
 
-        tourGuide.provideTour("Visitante");
+    public static void tourForChildren() {
+        System.out.println("Bienvenidos al tour para niños");
+        System.out.println("¿Desean comprar boletos para el zoológico? (Sí/No)");
+        Scanner scanner = new Scanner(System.in);
+        String response = scanner.nextLine().toLowerCase();
+        if (response.equals("sí") || response.equals("si")) {
+            buyTickets();
+        }
+    }
+
+    public static void tourForBirdLovers() {
+        System.out.println("Bienvenidos al tour para amantes de las aves");
+        System.out.println("¿Desean comprar boletos para el zoológico? (Sí/No)");
+        Scanner scanner = new Scanner(System.in);
+        String response = scanner.nextLine().toLowerCase();
+        if (response.equals("sí") || response.equals("si")) {
+            buyTickets();
+        }
+        System.out.println("¿Desean obtener más información sobre algún animal específico? (Sí/No)");
+        response = scanner.nextLine().toLowerCase();
+        if (response.equals("sí") || response.equals("si")) {
+            getAnimalInformation();
+        }
+    }
+
+    public static void buyTickets() {
+        System.out.println("Comprando boletos...");
+        // Aquí iría la lógica para comprar boletos
+    }
+
+    public static void getAnimalInformation() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese el nombre del animal del que desea obtener información:");
+        String animalName = scanner.nextLine();
+        // Aquí podrías implementar la lógica para mostrar información sobre el animal
+        System.out.println("Información sobre el animal " + animalName + ":");
+        System.out.println("...");
     }
 
     public static void manageResources(ZooResourceManager resourceManager, Scanner scanner) {
