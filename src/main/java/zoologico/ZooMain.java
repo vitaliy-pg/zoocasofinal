@@ -6,15 +6,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+
 // Clases para la gestión de hábitats
 
 abstract class Habitat {
+    private String nombre;
     private String type;
     private int temperature;
     private int humidity;
     private boolean clean;
 
-    public Habitat(String type, int temperature, int humidity, boolean clean) {
+    public Habitat(String type, int temperature, int humidity, boolean clean, String nombre) {
+        this.nombre = nombre;
         this.type = type;
         this.temperature = temperature;
         this.humidity = humidity;
@@ -22,6 +25,7 @@ abstract class Habitat {
     }
 
     public void monitorConditions() {
+        System.out.println("nombre del animal " +  nombre + ":");
         System.out.println("Monitoreando condiciones en el hábitat " + type + ":");
         System.out.println("Temperatura: " + temperature);
         System.out.println("Humedad: " + humidity);
@@ -30,20 +34,20 @@ abstract class Habitat {
 }
 
 class AquaticHabitat extends Habitat {
-    public AquaticHabitat(int temperature, int humidity, boolean clean) {
-        super("Acuático", temperature, humidity, clean);
+    public AquaticHabitat(int temperature, int humidity, boolean clean ,String nombre) {
+        super("Acuático", temperature, humidity, clean, nombre);
     }
 }
 
 class TerrestrialHabitat extends Habitat {
-    public TerrestrialHabitat(int temperature, int humidity, boolean clean) {
-        super("Terrestre", temperature, humidity, clean);
+    public TerrestrialHabitat(int temperature, int humidity, boolean clean ,String nombre) {
+        super("Terrestre", temperature, humidity, clean,nombre);
     }
 }
 
 class AviaryHabitat extends Habitat {
-    public AviaryHabitat(int temperature, int humidity, boolean clean) {
-        super("Aviario", temperature, humidity, clean);
+    public AviaryHabitat(int temperature, int humidity, boolean clean,String nombre) {
+        super("Aviario", temperature, humidity, clean, nombre);
     }
 }
 
@@ -255,6 +259,8 @@ public class ZooMain {
         System.out.println("3. Aviario");
         int habitatType = scanner.nextInt();
         scanner.nextLine();
+        System.out.println("Ingrese el nombre del animal:");
+        String nombre = scanner.nextLine();
 
         System.out.println("Ingrese la temperatura del hábitat:");
         int temperature = scanner.nextInt();
@@ -271,13 +277,13 @@ public class ZooMain {
         Habitat habitat = null;
         switch (habitatType) {
             case 1:
-                habitat = new AquaticHabitat(temperature, humidity, clean);
+                habitat = new AquaticHabitat(temperature, humidity, clean, "nombre");
                 break;
             case 2:
-                habitat = new TerrestrialHabitat(temperature, humidity, clean);
+                habitat = new TerrestrialHabitat(temperature, humidity, clean, "nombre");
                 break;
             case 3:
-                habitat = new AviaryHabitat(temperature, humidity, clean);
+                habitat = new AviaryHabitat(temperature, humidity, clean, "nombre");
                 break;
             default:
                 System.out.println("Tipo de hábitat no válido.");
